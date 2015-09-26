@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Yahoo! - Incorrect Host in URL</title>
+</head>
+<body>
+<center><table border="0" width="500" cellspacing="0" cellpadding="0">
+<tbody><tr><td width="1%"><a href="http://www.yahoo.com/"><img src="img/yahoo.gif" alt="Yahoo" border="0" width="147" height="31"></a></td>
+<td align="right"><font face="arial" size="-1">
+<a href="http://www.yahoo.com/">Yahoo! Home</a> -
+<a href="http://howto.yahoo.com/">Help</a></font>
+<hr size="1" noshade=""></td></tr></tbody></table>
+<big>
+<p>The URL ''<b><span id="currenturl"></span></b>'' is not a valid Yahoo! URL.<br>
+You probably want the following URL: <a href="http://geocities.yahoo.com/">http://geocities.yahoo.com</a>
+</p></big><p><big>Or, visit <a href="http://www.yahoo.com/">Yahoo!'s Home
+Page</a> to find the desired service.</big></p><hr>Copyright © 2000 Yahoo! All Rights Reserved.<br> See our
+<a href="http://www.yahoo.com/docs/info/gen_disclaimer.html">Important
+Disclaimers and Legal Information</a>.
+</center>
+<script type="text/javascript">
+	var url = document.URL;
+	var dateElem = document.getElementById('currenturl');
+	dateElem.innerHTML = url;
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JULIA ALLYCE - FRONT END DEVELOPER</title>
+	<style type="text/css">
+		h1,h2,p {
+			color:purple;
+		}
+		a {
+			color: darkorchid;
+			text-shadow: 1px 1px black;
+		}
+		a:hover {
+			background-color: dodgerblue;
+			color: white;
+		}
+		hr {
+			width: 300px;
+			border: 1px solid darkorchid;
+		}
+	</style>
+</head>
+<body style="background-image:url(img/bg.gif); background-repeat: repeat; cursor: url(img/horse.cur), default; color: darkblue;">
+<center>
+	<table style="border:2px solid mediumpurple;padding:10px;">
+		<tr>
+			<td>
+				<small>Last Updated: Sat Sept 26 2015</small><br>
+				<img src="img/tripod.jpg"/>
+			</td>
+			<td style="text-align:right">
+				<small>Today is: <span id="date"></span></small><br>
+				<img src="img/tripod.jpg"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<center>
+					<h1><img src="img/marenfoal.gif"/>Julia Allyce<img src="img/marenfoal.gif"/></h1>
+					<h2>Front End Developer</h2>
+					<img src="img/pony.jpg" title="Photo by Lee Edwin Coursey https://www.flickr.com/photos/leeco/"/>
+				</center>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<h2>My Links</h2>
+				<ul>
+					<li><a href="https://twitter.com/julia_allyce">Twitter</a></li>
+					<li><a href="https://github.com/julia-allyce">Github</a></li>
+					<li><a href="https://medium.com/@juliaallyce">Medium</a></li>
+				</ul>
+				<hr>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<h2>Talks</h2>
+				<ul>
+					<li><i><b>Go For Front End Developers</b></i>, Gophercon India, February 2015</li>
+					<li><i><b>JS Types and Inheritance</b></i>, Women Who Code DC, Frontend Hack Night, July 2015</li>
+					<li><i><b>Becoming a Happy Javascripter</b></i>, NationJS, November 2015</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<center>
+				<img src="img/border.gif"/>
+				<br>
+				<small>
+				<b>Copyright 2015 Julia Allyce All Rights Reserved</b><br>
+				Web Layout by Julia Allyce
+				</small></center>
+			</td>
+		</tr>
+	</table>
+</center>
+<script type="text/javascript">
+	var today = new Date().toDateString();
+	var dateElem = document.getElementById('date');
+	dateElem.innerHTML = today;
+
+	document.onmousedown= function (event) {
+	  if(event.button==2) {
+	  	event.preventDefault();
+		alert("THIS WEBSITE IS COPYRIGHTED!!! NO RIGHT CLICKS ALLOWED!!!!");
+	   }
+	};
+	document.oncontextmenu= function() { return false; };
+</script>
+</body>
+</html>
