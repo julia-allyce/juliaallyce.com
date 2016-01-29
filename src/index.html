@@ -1,97 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JULIA ALLYCE - FRONT END DEVELOPER</title>
-	<style type="text/css">
-		h1,h2,p {
-			color:purple;
-		}
-		a {
-			color: darkorchid;
-			text-shadow: 1px 1px black;
-		}
-		a:hover {
-			background-color: dodgerblue;
-			color: white;
-		}
-		hr {
-			width: 300px;
-			border: 1px solid darkorchid;
-		}
-	</style>
+  <title>JULIA ALLYCE - FRONT END DEVELOPER</title>
+  <link href="./style.css" rel="stylesheet" type="text/css">
 </head>
-<body style="background-image:url(img/bg.gif); background-repeat: repeat; cursor: url(img/horse.cur), default; color: darkblue;">
-<center>
-	<table style="border:2px solid mediumpurple;padding:10px;">
-		<tr>
-			<td>
-				<small>Last Updated: Sat Jan 9 2015</small><br>
-				<img src="img/tripod.jpg"/>
-			</td>
-			<td style="text-align:right">
-				<small>Today is: <span id="date"></span></small><br>
-				<img src="img/tripod.jpg"/>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<center>
-					<h1><img src="img/marenfoal.gif"/>Julia Allyce<img src="img/marenfoal.gif"/></h1>
-					<h2>Front End Developer</h2>
-					<img src="img/pony.jpg" title="Photo by Lee Edwin Coursey https://www.flickr.com/photos/leeco/"/>
-				</center>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<h2>My Links</h2>
-				<ul>
-					<li><a href="https://twitter.com/julia_allyce">Twitter</a></li>
-					<li><a href="https://github.com/julia-allyce">Github</a></li>
-					<li><a href="https://medium.com/@juliaallyce">Medium</a></li>
-				</ul>
-				<hr>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<h2>Talks and Advocacy</h2>
-				<ul>
-					<li><i><b>DoneJS and React</b></i>, DCJS, March 2016</li>
-					<li><i><b>Building Fast SPAs with DoneJS</b></i>, DenverScript, February 2016</li>
-					<li><i><b>DoneJS: a History Lesson</b></i>, VanJS, January 2016</li>
-					<li><a href="http://slides.com/juliaallyce/happy-jser"><i><b>Becoming a Happy Javascripter</b></i></a>, NationJS, November 2015</li>
-					<li><a href="http://slides.com/juliaallyce/intro-to-git"><i><b>Intro to Git</b></i></a>, Women Who Code DC, Python Hack Night, October 2015</li>
-					<li><a href="http://slides.com/juliaallyce/deck"><i><b>JS Types and Inheritance</b></i></a>, Women Who Code DC, Frontend Hack Night, July 2015</li>
-					<li><i><b>Go For Front End Developers</b></i>, Gophercon India, February 2015</li>
-				</ul>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<center>
-				<img src="img/border.gif"/>
-				<br>
-				<small>
-				<b>Copyright 2015 Julia Allyce All Rights Reserved</b><br>
-				Web Layout by Julia Allyce
-				</small></center>
-			</td>
-		</tr>
-	</table>
-</center>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%"></svg>
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script type="text/javascript">
-	var today = new Date().toDateString();
-	var dateElem = document.getElementById('date');
-	dateElem.innerHTML = today;
+  var svg = d3.select("svg")
 
-	document.onmousedown= function (event) {
-	  if(event.button==2) {
-	  	event.preventDefault();
-		alert("THIS WEBSITE IS COPYRIGHTED!!! NO RIGHT CLICKS ALLOWED!!!!");
-	   }
-	};
-	document.oncontextmenu= function() { return false; };
+  var rect = svg.append("rect")
+  .attr({
+    width:'100%',
+    height: '100%'
+  });
+
+  svg.append("text").attr("font-family", "sans-serif")
+     .attr("font-size", '100')
+    .attr('y', 100)
+      .attr('x', '50') 
+    .attr('fill','transparent')
+     .attr("stroke", "white").text("Julia Allyce");
+
+  svg.append("text").attr("font-family", "sans-serif")
+     .attr("font-size", "1.2em")
+    .attr('y', 135)
+      .attr('x', '50') 
+    .attr('fill','transparent')
+     .attr("stroke", "white").text("Front End Developer");
+
+  var gradient = svg.append("defs")
+    .append("linearGradient")
+      .attr("id", "gradient")
+      .attr("x1", "0%")
+      .attr("y1", "0%")
+      .attr("x2", "100%")
+      .attr("y2", "100%")
+      .attr("spreadMethod", "pad");
+
+  var stops = gradient.selectAll("stop")
+        .data([
+          {offset: "0%", color: 0},
+          {offset: "40%", color: 20},
+          {offset: "60%", color: 20},
+          {offset: "100%", color: 40}
+        ])
+      
+  stops.enter().append("stop")
+        .attr("offset", function(d) { return d.offset; })
+        .attr("stop-color", function(d) { return d3.hsl(d.color,0.8,0.6).toString(); });
+
+  rect.style("fill", "url(#gradient)");
+
+  var handler = debounce(function(){
+    stops.attr("stop-color", function(d) { 
+          var h = d.color + 1;
+      h = h > 360 ? h-360 : h;
+      d.color=h;
+          return d3.hsl(h,1,0.6).toString(); 
+        });
+    rect.transition().style("fill", "url(#gradient)");
+  },10);
+
+  rect.on('mousemove', handler);
+  rect.on('touchmove', handler);
+
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this;
+      var args = arguments;
+      var evt  = d3.event;
+
+      var later = function() {
+        timeout = null;
+        if (!immediate) {
+          var tmpEvent = d3.event;
+          d3.event = evt;
+          func.apply(context, args);
+          d3.event = tmpEvent;
+        }
+      };
+
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) {
+        var tmpEvent = d3.event;
+        d3.event = evt;
+        func.apply(context, args);
+        d3.event = tmpEvent;
+      }
+
+    };
+  }
 </script>
 </body>
 </html>
