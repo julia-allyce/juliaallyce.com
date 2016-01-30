@@ -9,6 +9,7 @@
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script type="text/javascript">
   var svg = d3.select("svg")
+  var body = d3.select("body")
 
   var rect = svg.append("rect")
   .attr({
@@ -16,55 +17,98 @@
     height: '100%'
   });
 
-  svg.append("text").attr("font-family", "sans-serif")
-     .attr("font-size", '100')
-    .attr('y', 100)
-      .attr('x', '50') 
-    .attr('fill','transparent')
-     .attr("stroke", "white").text("Julia Allyce");
+  var gradient = svg.append('defs')
+    .append('linearGradient')
+    .attr({
+      'id': 'gradient',
+      'x1': '0%',
+      'y1': '0%',
+      'x2': '100%',
+      'y2': '100%',
+      'spreadMethod': 'pad'
+    });
 
-  svg.append("text").attr("font-family", "sans-serif")
-     .attr("font-size", "1.2em")
-    .attr('y', 135)
-      .attr('x', '50') 
-    .attr('fill','transparent')
-     .attr("stroke", "white").text("Front End Developer");
+  var stops = gradient.selectAll('stop')
+    .data([
+      {offset: '0%', color: 0},
+      {offset: '40%', color: 20},
+      {offset: '60%', color: 20},
+      {offset: '100%', color: 40}
+    ]);
 
-  var gradient = svg.append("defs")
-    .append("linearGradient")
-      .attr("id", "gradient")
-      .attr("x1", "0%")
-      .attr("y1", "0%")
-      .attr("x2", "100%")
-      .attr("y2", "100%")
-      .attr("spreadMethod", "pad");
+  stops.enter().append('stop')
+    .attr('offset', function(d) { return d.offset; })
+    .attr('stop-color', function(d) { return d3.hsl(d.color,0.8,0.6).toString(); });
 
-  var stops = gradient.selectAll("stop")
-        .data([
-          {offset: "0%", color: 0},
-          {offset: "40%", color: 20},
-          {offset: "60%", color: 20},
-          {offset: "100%", color: 40}
-        ])
+  rect.style('fill', 'url(#gradient)');
+
+  svg.append("text")
+    .attr({
+      'font-family': 'sans-serif',
+      'font-size': '100',
+      'y': 130,
+      'x': 60,
+      'fill':'transparent',
+      'stroke': '#fff'
+    }).text('Julia Allyce');
+
+  svg.append('text')
+    .attr({
+      'font-family': 'sans-serif',
+      'font-size': '1.2em',
+      'y': 160,
+      'x': 60,
+      'fill':'transparent',
+      'stroke': '#fff',
+    }).text('Front End Developer');
+
+  //MEDIUM
+  svg.append('svg:a').attr({
+    'xlink:href': 'http://medium.com/@juliaallyce'})
+  .append('text').attr({
+    'font-family': 'icomoon',
+    'font-size': '1.2em',
+    'y': 190,
+    'x': 60,
+    'fill':'#fff'
+  }).html('&#xe900;');
+
+  //TWITTER
+  svg.append('svg:a').attr({
+    'xlink:href': 'http://twitter.com/julia_allyce'})
+  .append('text').attr({
+    'font-family': 'icomoon',
+    'font-size': '1.2em',
+    'y': 190,
+    'x': 90,
+    'fill':'#fff'
+  }).html('&#xe904;');
+
+
+  //GITHUB
+  svg.append('svg:a').attr({
+    'xlink:href': 'http://github.com/julia-allyce'})
+  .append('text').attr({
+    'font-family': 'icomoon',
+    'font-size': '1.2em',
+    'y': 190,
+    'x': 120,
+    'fill':'#fff'
+  }).html('&#xe905;');
       
-  stops.enter().append("stop")
-        .attr("offset", function(d) { return d.offset; })
-        .attr("stop-color", function(d) { return d3.hsl(d.color,0.8,0.6).toString(); });
-
-  rect.style("fill", "url(#gradient)");
 
   var handler = debounce(function(){
-    stops.attr("stop-color", function(d) { 
+    stops.attr('stop-color', function(d) { 
           var h = d.color + 1;
       h = h > 360 ? h-360 : h;
       d.color=h;
           return d3.hsl(h,1,0.6).toString(); 
         });
-    rect.transition().style("fill", "url(#gradient)");
+    rect.transition().style('fill', 'url(#gradient)');
   },10);
 
-  rect.on('mousemove', handler);
-  rect.on('touchmove', handler);
+  body.on('mousemove', handler);
+  body.on('touchmove', handler);
 
   function debounce(func, wait, immediate) {
     var timeout;
