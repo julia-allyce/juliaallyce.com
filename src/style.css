@@ -43,4 +43,28 @@ body {
 svg {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -1;
+}
+
+svg a, svg text {
+  position: absolute;
+}
+
+.copy {
+  margin: 0 40px 40px 40px;
+  max-width: 800px;
+  z-index: 1;
+  background: rgba(255,255,255, 1);
+  padding: 40px 60px;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+  font-family: monospace;
+  color: #333;
+}
+
+.copy:first-of-type {
+  margin-top: 220px;
+}
+
+.copy p {
+  line-height: 2em;
 }

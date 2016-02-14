@@ -7,139 +7,20 @@
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%"></svg>
+<div id="first" class="copy">
+  <h1>About</h1>
+  <p>Bacon ipsum dolor amet beef ribs drumstick landjaeger ribeye shankle chuck meatloaf filet mignon cow strip steak picanha rump salami hamburger. Porchetta meatloaf hamburger drumstick doner turducken sirloin chuck sausage tri-tip cow rump beef ribs shankle ham. Boudin jowl pancetta shank pork loin, ball tip t-bone alcatra biltong turkey. Picanha porchetta andouille turducken filet mignon, meatball frankfurter ground round biltong doner bacon beef ribs tri-tip drumstick.</p>
+
+  <p>Rump biltong pork loin sirloin leberkas pig brisket corned beef salami beef ribs cupim spare ribs. Pork alcatra kielbasa pancetta ham hock. Turkey pork loin beef ribs, ball tip short ribs swine pancetta filet mignon spare ribs picanha pork chop bresaola tenderloin ribeye. Tongue bacon pork chop capicola, spare ribs hamburger tri-tip salami landjaeger sirloin picanha t-bone strip steak. Spare ribs flank shoulder ham hock kielbasa.</p>
+
+</div>
+<div class="copy">
+  <h1>Text</h1>
+  <p>Bacon ipsum dolor amet beef ribs drumstick landjaeger ribeye shankle chuck meatloaf filet mignon cow strip steak picanha rump salami hamburger. Porchetta meatloaf hamburger drumstick doner turducken sirloin chuck sausage tri-tip cow rump beef ribs shankle ham. Boudin jowl pancetta shank pork loin, ball tip t-bone alcatra biltong turkey. Picanha porchetta andouille turducken filet mignon, meatball frankfurter ground round biltong doner bacon beef ribs tri-tip drumstick.</p>
+
+  <p>Rump biltong pork loin sirloin leberkas pig brisket corned beef salami beef ribs cupim spare ribs. Pork alcatra kielbasa pancetta ham hock. Turkey pork loin beef ribs, ball tip short ribs swine pancetta filet mignon spare ribs picanha pork chop bresaola tenderloin ribeye. Tongue bacon pork chop capicola, spare ribs hamburger tri-tip salami landjaeger sirloin picanha t-bone strip steak. Spare ribs flank shoulder ham hock kielbasa.</p>
+</div>
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script type="text/javascript">
-  var svg = d3.select("svg")
-  var body = d3.select("body")
-
-  var rect = svg.append("rect")
-  .attr({
-    width:'100%',
-    height: '100%'
-  });
-
-  var gradient = svg.append('defs')
-    .append('linearGradient')
-    .attr({
-      'id': 'gradient',
-      'x1': '0%',
-      'y1': '0%',
-      'x2': '100%',
-      'y2': '100%',
-      'spreadMethod': 'pad'
-    });
-
-  var stops = gradient.selectAll('stop')
-    .data([
-      {offset: '0%', color: 0},
-      {offset: '40%', color: 20},
-      {offset: '60%', color: 20},
-      {offset: '100%', color: 40}
-    ]);
-
-  stops.enter().append('stop')
-    .attr('offset', function(d) { return d.offset; })
-    .attr('stop-color', function(d) { return d3.hsl(d.color,0.8,0.6).toString(); });
-
-  rect.style('fill', 'url(#gradient)');
-
-  svg.append("text")
-    .attr({
-      'font-family': 'sans-serif',
-      'font-size': '100',
-      'y': 130,
-      'x': 60,
-      'fill':'transparent',
-      'stroke': '#fff'
-    }).text('Julia Allyce');
-
-  svg.append('text')
-    .attr({
-      'font-family': 'sans-serif',
-      'font-size': '1.2em',
-      'y': 160,
-      'x': 60,
-      'fill':'transparent',
-      'stroke': '#fff',
-    }).text('Front End Developer');
-
-  //MEDIUM
-  svg.append('svg:a').attr({
-    'xlink:href': 'http://medium.com/@juliaallyce'})
-  .append('text').attr({
-    'font-family': 'icomoon',
-    'font-size': '1.2em',
-    'y': 190,
-    'x': 60,
-    'fill':'#fff'
-  }).html('&#xe900;');
-
-  //TWITTER
-  svg.append('svg:a').attr({
-    'xlink:href': 'http://twitter.com/julia_allyce'})
-  .append('text').attr({
-    'font-family': 'icomoon',
-    'font-size': '1.2em',
-    'y': 190,
-    'x': 90,
-    'fill':'#fff'
-  }).html('&#xe904;');
-
-
-  //GITHUB
-  svg.append('svg:a').attr({
-    'xlink:href': 'http://github.com/julia-allyce'})
-  .append('text').attr({
-    'font-family': 'icomoon',
-    'font-size': '1.2em',
-    'y': 190,
-    'x': 120,
-    'fill':'#fff'
-  }).html('&#xe905;');
-      
-
-  var handler = debounce(function(){
-    stops.attr('stop-color', function(d) { 
-          var h = d.color + 1;
-      h = h > 360 ? h-360 : h;
-      d.color=h;
-          return d3.hsl(h,1,0.6).toString(); 
-        });
-    rect.transition().style('fill', 'url(#gradient)');
-  },10);
-
-  body.on('mousemove', handler);
-  body.on('touchmove', handler);
-
-  function debounce(func, wait, immediate) {
-    var timeout;
-    return function() {
-      var context = this;
-      var args = arguments;
-      var evt  = d3.event;
-
-      var later = function() {
-        timeout = null;
-        if (!immediate) {
-          var tmpEvent = d3.event;
-          d3.event = evt;
-          func.apply(context, args);
-          d3.event = tmpEvent;
-        }
-      };
-
-      var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) {
-        var tmpEvent = d3.event;
-        d3.event = evt;
-        func.apply(context, args);
-        d3.event = tmpEvent;
-      }
-
-    };
-  }
-</script>
+<script src="./yavascript.js" type="text/javascript"></script>
 </body>
 </html>
