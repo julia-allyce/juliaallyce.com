@@ -103,14 +103,17 @@ var mouseHandler = debounce(function(){
   rect.transition().style('fill', 'url(#gradient)');
 },10);
 
-body.on('mousemove', mouseHandler);
-body.on('touchmove', mouseHandler);
-d3.select(window).on('scroll', function() {
+var scrollHandler = function() {
   var st = (window.scrollY + 0.5) << 0;
-  if(st > 201) return;
   var opacity = st > 200 ? 0 : (200 - st)/200;
   svgCopy.style('opacity', opacity);
-});
+};
+
+body.on('mousemove', mouseHandler);
+body.on('touchmove', mouseHandler);
+d3.select(window).on('scroll', scrollHandler);
+
+scrollHandler();
 
 function debounce(func, wait, immediate) {
   var timeout;
