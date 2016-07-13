@@ -52,7 +52,7 @@ var title = svg.append('text')
     'fill':'transparent',
     'stroke': '#fff',
     'class':'svg-copy'
-  }).text('Front End Developer');
+  }).text('Full Stack Developer');
 
 //MEDIUM
 var mediumLink = svg.append('svg:a').attr({
